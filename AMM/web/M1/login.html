@@ -13,16 +13,37 @@ and open the template in the editor.
         <meta name="author" content="Marco Angius">
         <meta name="description" content="pagina di login utente Thrift Hardware Shop">
     </head>
+
     <body>
-        <div>
+
+        <header>
             <H1>LOGIN</H1>
-            <p>Username:<input type="text" name="username" /></p>
-            <p>Password:<input type="password" name="password"/></p>
-        </div>
+            <p>Effetua il login per accedere alla pagina personale</p>
+        </header>
+
         <nav>
             <a href="descrizione.html">Home</a>
             <a href="cliente.html">Cliente</a>
             <a href="venditore.html">Venditore</a>
         </nav>
+
+        <article>
+            <form method="GET">
+                <div>
+                    <label for="username">Username</label> 
+                    <input type="text" name="username" id="username" />
+                </div>
+                <div>
+                    <label for="password">Password</label> 
+                    <input type="password" name="password" id="password"/>
+                </div>
+                <div>
+                    <input type="submit" value="Invia">
+                </div>
+            </form>
+
+        </article>
+
     </body>
+
 </html>

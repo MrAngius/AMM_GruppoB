@@ -6,11 +6,50 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Nuovo Oggetto</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="nuovo oggetto, hardware, venditore">
+        <meta name="author" content="Marco Angius">
+        <meta name="description" content="Pagina inserzione prodotto">
     </head>
     <body>
-        <div>TODO write content</div>
+        <header>
+            <h1>NUOVO OGGETTO</h1>
+            <p>Inserisci un nuovo oggetto da mettere in vendita</p>
+        </header>
+
+
+        <nav>
+            <a href="descrizione.html">Home</a>
+            <a href="venditore.html">Venditore</a>
+        </nav>
+
+        <article>
+            <form method="POST">
+                <div>
+                    <label for="nome_oggetto">Nome Oggetto</label>
+                    <input type="text" name="nomeOggetto" id="nome_oggetto"/>
+                </div>
+                <div>
+                    <label for="url_immagine">URL Immagine</label>
+                    <input type="url" name="urlImmagine" id="url_immagine"/> 
+                </div>
+                <div>
+                    <label for="descrizione_oggetto">Descrizione</label>
+                    <textarea name="descrioneOggetto" id="descrizione_oggetto" rows="4" cols="20"></textarea>
+                </div>
+                <div>
+                    <label for="prezzo_oggetto">Prezo Oggetto</label>
+                    <input type="text" name="prezzoOggetto" id="prezzo_oggetto"/>
+                </div>
+                <div>
+                    <label for="quantita_oggetto">Pezzi Disponibili</label>
+                    <input type="text" name="numeroPezzi" id="quantita_oggetto"/>
+                </div>
+
+                <input type="submit" value="Registra Prodotto"/>
+            </form> 
+        </article>       
     </body>
 </html>
