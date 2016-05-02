@@ -1,0 +1,590 @@
+/*CSS*/
+
+/* Custom font */
+@font-face {
+    font-family: 'techno_hideoregular';
+    src: url('font/techno_hideo/techno_hideo-webfont.eot');
+    src: url('font/techno_hideo/techno_hideo-webfont.eot?#iefix') format('embedded-opentype'),
+    url('font/techno_hideo/techno_hideo-webfont.woff2') format('woff2'),
+    url('font/techno_hideo/techno_hideo-webfont.woff') format('woff'),
+    url('font/techno_hideo/techno_hideo-webfont.ttf') format('truetype'),
+    url('font/techno_hideo/techno_hideo-webfont.svg#techno_hideoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+/* General and Header */
+body
+{
+    font-size: 100%;
+    font-family: "Arial", serif;
+    margin: auto;
+}
+
+h1
+{
+    margin-bottom: 2%;
+    color: darkred;
+    text-align: center;
+    font-family: "techno_hideoregular", serif;
+    font-weight: bold;
+    font-size: 3.5em;
+}
+
+.description p
+{
+    text-align: justify;
+}
+
+p
+{
+    text-align: center;
+    font-size: 1em;
+    color: darkgoldenrod;
+}
+
+h2, h3
+{
+    color: darkred;
+    font-style: italic;
+    font-size: 1.2em;
+    text-align: center;
+    padding: 1%;
+}
+
+#sidebar1 p
+{
+    margin-right: 2%;
+    margin-left: 2%;
+    color: darkgoldenrod;
+}
+
+#sidebar1  ul
+{
+
+    position: relative;
+    display: block;
+    list-style: square;
+    padding-right: 3%;
+    padding-top: 2%;
+}
+
+
+/* Link */
+
+a:link
+{
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+a:visited
+{
+    color: crimson;
+}
+
+a:active
+{
+    font-weight: bold;
+}
+
+/* Different style for page's  navigation link */
+
+.linkToSection a:link, .linkToSection a:visited
+{
+    color: darkred;
+}
+
+
+/* Client Table */
+
+#client_table
+{
+    color: darkgoldenrod;
+    border-collapse: collapse;
+    border: solid thin goldenrod;
+    margin: auto auto 3%;
+    margin-top: 4%;
+}
+
+#client_table th
+{
+    color: darkred;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+    background-color: bisque;
+    padding: 2%;
+}
+
+/*modified after jsp implementation to avoid specil classes for each row*/
+    
+    #client_table tr:nth-child(odd)
+    {
+        background-color: antiquewhite;
+    }
+
+    #client_table tr:nth-child(even)
+    {
+        background-color: lightgoldenrodyellow; 
+    }
+
+
+
+#client_table td:last-child img
+{
+    height: 20px;
+    width: 20px;
+}
+
+
+#client_table td:nth-child(2), #client_table td:nth-child(3),
+#client_table td:nth-child(4), #client_table td:nth-child(5)
+{
+    padding-left: 2%;
+    padding-right: 2%;
+
+}
+
+#client_table td:nth-child(5)
+{
+    width: 150px;
+    padding: 1%;
+    text-align: center;
+    min-width: 100px;
+}
+
+/* handling image size with css*/
+#client_table td:nth-child(1) img
+{
+    height: 60px;
+    width: 60px;
+    display: block;
+    padding: 1%;
+}
+
+/* used to center the text for quantity and price columns*/
+.column_text_centered
+{
+    text-align: center;
+}
+
+
+/* Forms */
+
+form
+{
+    color: darkgoldenrod;
+    display: block;
+    background-color: cornsilk;
+    border: thin solid goldenrod;
+    padding: 2%;
+}
+
+
+.form label
+{
+    float: left;
+    margin-top: 1%;
+}
+
+.form input[type="password"], .form input[type="url"], .form input[type="text"], .form textarea
+{
+    padding: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width: 97%;
+    resize: none;
+    outline: none;
+    border: thin solid bisque;
+
+}
+
+#riepilogo input, .form input[type="submit"]
+{
+    width: 100%;
+    background-color: bisque;
+    color: darkred;
+    margin-top: 3%;
+    border: none;
+    padding: 2%;
+    text-transform: uppercase;
+
+}
+
+.form input[type="password"]:focus, .form input[type="url"]:focus, .form input[type="text"]:focus, .form textarea:focus
+{
+    border-color: crimson;
+}
+
+#riepilogo input:focus, .form input[type="submit"]:focus, .form input[type="submit"]:hover, #riepilogo input:hover
+{
+    background-color: crimson;
+    color: white;
+    outline: none;
+}
+
+.form input[type="submit"]:active, #riepilogo input:active
+{
+    font-weight: bold;
+    background-color: cornflowerblue;
+}
+
+/* Layout */
+
+#header
+{
+    border-top: solid goldenrod thin;
+    background-color: moccasin;
+}
+
+#footer p
+{
+    margin-top: 5px;
+    position: absolute;
+    right: 15px;
+}
+
+@media only screen and (min-width: 1024px)
+{
+    form
+    {
+        margin-right: 15%;
+        margin-left: 15%;
+        margin-top: 8%;
+    }
+
+    #page
+    {
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        max-width: 1024px;
+        min-height: 1080px;
+
+        background: url(images/texture-noise.png) repeat;
+        border-right: goldenrod solid thin;
+        border-left: goldenrod solid thin;
+    }
+
+    #header
+    {
+        position: relative;
+        height: 230px;
+    }
+
+    #sidebar1
+    {
+        position: absolute;
+        left: 3%;
+        top: 230px;
+        height: 400px;
+        margin-top: 8%;
+        width: 18%;
+        border: thin solid goldenrod;
+        background-color: cornsilk;
+
+    }
+
+    #content
+    {
+        position: relative;
+        overflow: auto;
+        margin-left: 21%;
+        margin-bottom: 30px;
+        margin-top: 8%;
+        padding-left: 4%;
+        padding-right: 4%;
+    }
+
+
+    #footer
+    {
+        position: absolute;
+        height: 40px;
+        background-color: moccasin;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        border-top: solid goldenrod thin;
+        border-bottom: solid goldenrod thin;
+    }
+
+}
+
+
+@media only screen and (min-width: 481px) and (max-width: 1024px)
+{
+    form
+    {
+        margin-right: 8%;
+        margin-left: 8%;
+        margin-top: 8%;
+    }
+
+    #page
+    {
+        position: relative;
+        height: 920px;
+        min-width: 660px;
+        min-height: 980px;
+        overflow: scroll;
+
+        background: url(images/texture-noise.png) repeat;
+        border-right: goldenrod solid thin;
+        border-left: goldenrod solid thin;
+    }
+
+    #header
+    {
+        position: relative;
+        height: 230px;
+    }
+
+    #sidebar1
+    {
+        position: absolute;
+        left: 0;
+        top: 230px;
+        height: 400px;
+        margin-top: 8%;
+        margin-right: 2%;
+        width: 22%; /* different value to fit lower resolutions */
+        max-width: 180px; /* used adjusted to fit lower resolutions */
+
+        border-bottom: thin solid goldenrod;
+        border-top: thin solid goldenrod;
+        border-right: thin solid goldenrod;
+
+        background-color: cornsilk;
+
+    }
+
+    #content
+    {
+        position: relative;
+        margin-left: 22%;
+        margin-top: 8%;
+        padding: 0 4%;
+        overflow: auto;
+
+    }
+
+    #footer
+    {
+        position: absolute;
+        height: 40px;
+
+        background-color: moccasin;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        top: 980px;
+        border-top: solid goldenrod thin;
+        border-bottom: solid goldenrod thin;
+    }
+
+}
+
+@media only screen and (max-width: 480px)
+{
+
+    #page
+    {
+        position: relative;
+        max-width: 480px;
+        min-width: 400px;
+        min-height: 1080px;
+        overflow: scroll;
+
+        background: url(images/texture-noise.png) repeat;
+        border-right: goldenrod solid thin;
+        border-left: goldenrod solid thin;
+    }
+
+    #header
+    {
+        position: relative;
+        height: 190px;
+    }
+
+
+    #header h1
+    {
+        font-size: 2.5em;
+        padding: 1%;
+    }
+
+    #sidebar1 {
+        position: absolute;
+        top: 190px;
+        margin-top: 10px;
+        right: 0;
+        left: 0;
+    }
+
+    #content
+    {
+        position: relative;
+        bottom: 0;
+        top: 120px;
+        right:0;
+        padding-left: 4%;
+        padding-right: 4%;
+        padding-top: 6%;
+        margin-bottom: 30px;
+    }
+
+    #footer
+    {
+        position: absolute;
+        height: 40px;
+        background-color: moccasin;
+        top: 1080px;
+        right: 0;
+        left: 0;
+        border-top: solid goldenrod thin;
+        border-bottom: solid goldenrod thin;
+    }
+
+
+    /* Table Adapting */
+
+    /* hide the first column */
+    #client_table td:first-child, #client_table th:first-child
+    {
+        display: none;
+    }
+    
+   
+    #client_table td:nth-child(2), #client_table td:nth-child(3),
+    #client_table td:nth-child(4), #client_table td:nth-child(5)
+    {
+        padding: 1% 2%;
+    }
+
+
+    /* Navigation Bar */
+    #header nav ul
+    {
+        position: relative;
+        display: block;
+    }
+
+
+}
+
+
+/* Navigation Bar*/
+
+#header nav
+{
+    position: absolute;
+    height: 19px;
+    right:0;
+    left:0;
+    bottom: 0;
+    background-color: cornsilk;
+    border-bottom: thin solid goldenrod;
+    border-top: thin solid goldenrod;
+    padding: 5px;
+}
+
+#header nav ul
+{
+    list-style-type: none;
+    padding: 0;
+    margin-left: 1%;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+#header nav li
+{
+    position: relative;
+    display: inline;
+}
+
+#header nav li a
+{
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 7px;
+}
+
+#header nav li a:hover
+{   background-color: #e8cd66;
+    color: white;
+}
+
+#header nav li a:active
+{
+    background-color: cornflowerblue;
+}
+
+/* Modifiche post servlet */
+
+.clear{
+    margin-top: 30px;
+}
+
+
+#riepilogo .image div{
+    min-width: 100%;
+}
+
+#riepilogo img{
+    display: block;
+    margin: 15px auto;
+    border: solid;
+    border-width: thin;
+    width: 80px;
+    height: 80px;
+}
+
+#riepilogo input
+{
+    width: 100%;
+    background-color: bisque;
+    color: darkred;
+    margin-top: 3%;
+    border: none;
+    padding: 2%;
+    text-transform: uppercase;
+
+}
+
+#riepilogo p{
+    text-align: center;
+    margin-top: 3px;
+}
+
+#riepilogo p.bold{
+    margin-bottom: 3px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#riepilogo a  {
+    text-align: center;
+    display: block;
+    margin: 0 auto;
+    margin-top: 9px;
+}
+
+form.form p.error {
+    margin-top: 3px;
+    text-align: right;
+    color: lightcoral;
+}
+
+form.form input.evidenzia{
+    background-color: lightcoral;
+    border-color: darkred;
+    
+    
+}
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Nuovo Oggetto</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="keywords" content="nuovo oggetto, hardware, venditore">
+        <meta name="author" content="Marco Angius">
+        <meta name="description" content="Pagina inserzione prodotto">
+        <link href="css/style.css" type="text/css" rel="stylesheet" media="screen"/>
+    </head>
+    <body>
+        <!-- Page -->
+        <div id="page">
+
+            <!-- Header -->
+            <header id="header">
+                <h1><em>THRIFT HARDWARE SHOP</em></h1>
+                <p>Benvenuti nel sito e-commerce Thrift Hardware Shop</p>
+
+                <nav>
+                    <ul>
+                        <li><a href="descrizione.html">Home</a></li>
+                        <li><a href="login.html">Login</a></li>
+                    </ul>
+                </nav>
+
+
+            </header>
+
+
+            <!-- Sidebar 1-->
+            <div id="sidebar1">
+
+                <h2>Nuovo Oggetto</h2>
+                <p>Inserisci un nuovo oggetto da mettere in vendita</p>
+
+            </div>
+
+            <!-- Content -->
+            <div id="content">
+
+                <form class="form" method="POST">
+                    <div>
+                        <label for="nome_oggetto">Nome Oggetto</label>
+                        <input type="text" name="nomeOggetto" id="nome_oggetto"/>
+                    </div>
+                    <div>
+                        <label for="url_immagine">URL Immagine</label>
+                        <input type="url" name="urlImmagine" id="url_immagine"/>
+                    </div>
+                    <div>
+                        <label for="descrizione_oggetto">Descrizione</label>
+                        <textarea name="descrioneOggetto" id="descrizione_oggetto" rows="4" cols="20"></textarea>
+                    </div>
+                    <div>
+                        <label for="prezzo_oggetto">Prezo Oggetto</label>
+                        <input type="text" name="prezzoOggetto" id="prezzo_oggetto"/>
+                    </div>
+                    <div>
+                        <label for="quantita_oggetto">Pezzi Disponibili</label>
+                        <input type="text" name="numeroPezzi" id="quantita_oggetto"/>
+                    </div>
+
+                    <input type="submit" value="Registra Prodotto"/>
+                </form>
+
+            </div>
+
+            <!-- Clear -->
+            <div id="clear"></div>
+
+            <!-- Header -->
+            <footer id="footer">
+                <p>
+                    <a href="http://jigsaw.w3.org/css-validator/check/referer">
+                        <img style="border:0;width:88px;height:31px"
+                             src="http://jigsaw.w3.org/css-validator/images/vcss"
+                             alt="Valid CSS!" />
+                    </a>
+                </p>
+            </footer>
+
+        </div>
+    </body>
+</html>
