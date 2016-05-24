@@ -11,46 +11,24 @@ package amm.milestone3.classi;
  */
 public class SaldoConto {
 
-    private int id;
     private Double conto;
-
-    // costruttore 
+    
+    // costruttori
     public SaldoConto() {
-        this.setId(-1);
         this.setConto(0.0);
     }
 
-    // costruttore 
-    public SaldoConto(int id, Double conto) {
-        this.setId(id);
+    public SaldoConto(Double conto) {
         this.setConto(conto);
 
     }
 
+    // metodi
     public Double getConto() {
         return conto;
     }
 
     public void setConto(Double conto) {
         this.conto = conto;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    //metodi 
-    public Double aggiungiSoldi(Double soldi) {
-        this.setConto(this.getConto() + soldi);
-        return this.getConto();
-    }
-
-    public Double rimuoviSoldi(Double soldi) {
-        this.setConto(this.getConto() - soldi);
-        return this.getConto();
     }
 }

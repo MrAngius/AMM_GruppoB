@@ -53,41 +53,112 @@ and open the template in the editor.
                 <div id="sidebar1">
                     <h2>Cliente</h2>
                     <p>Prodotti disponibili</p>
+
+                    <div id="welcome">
+                        <p>Benvenuto ${utente.getName()}</p>                      
+                        <p>Credito: ${utente.getDisponibilita().getConto()}€</p>
+                    </div>
+
+                    <div>
+                        <a href="cliente.html?ricarica=true">Ricarica</a>
+                    </div>
+                    <div>
+                        <a href="cliente.html?visualizza_acquisti=true">Storico Acquisti</a>
+                    </div>
                 </div>
 
                 <!-- Content -->
                 <div id="content">
 
-                    <table id="client_table">
+                    <!-- RICARICA -->
 
-                        <tr>
-                            <th></th>
-                            <th>Prodotto</th>
-                            <th>Quantità</th>
-                            <th>Prezzzo</th>
-                            <th></th>
-                        </tr>
+                    <c:if test="${ricarica == true}">
+
+                        <div>
+                            <form class="form"  method='GET' acttion='cliente.html'>
+                                <p>Scegliere l'importo da ricaricare</p>
+                                <label for='ricarica'>Importo:</label>
+                                <input type='text' name='imp_ric' alt="0.0" id='ricarica'>
+                                <input type="submit" name="procedi" value="Continua"/> 
+                            </form>
+                        </div>
+
+                    </c:if>   
 
 
-                        <c:forEach var="oggetto" items="${listaOggetti}">
+                    <!-- LISTA OGGETTI VENDITA -->
+
+                    <c:if test="${ricarica != true && riepilogo_acquisto != true}">
+                        <table id="client_table">
 
                             <tr>
-
-                                <td class="imag_row"><img src="${oggetto.getUrl()}" alt="${oggetto.getDescrizione()}" width="20px" height="20px"/></td>
-                                <td>${oggetto.getNome()}</td>
-                                <td class="column_text_centered">${oggetto.getQuantita()}</td>
-                                <td class="column_text_centered">${oggetto.getPrezzo()}</td>
-                                <td><a href="cliente.html?oggetto_scelto=${oggetto.getId()}">Aggiungi Carrello</a></td> 
-
+                                <th></th>
+                                <th>Prodotto</th>
+                                <th>Quantità</th>
+                                <th>Prezzzo</th>
+                                <th></th>
                             </tr>
-                        </c:forEach>
+
+                            <c:forEach var="oggetto" items="${listaOggetti}">
+
+                                <tr>
+
+                                    <td class="imag_row"><img src="${oggetto.getUrl()}" alt="${oggetto.getDescrizione()}" width="20px" height="20px"/></td>
+                                    <td>${oggetto.getNome()}</td>
+                                    <td class="column_text_centered">${oggetto.getQuantita()}</td>
+                                    <td class="column_text_centered">${oggetto.getPrezzo()}</td>
+                                    <td><a href="cliente.html?oggetto_scelto=${oggetto.getId()}">Aggiungi Carrello</a></td> 
+
+                                </tr>
+                            </c:forEach>
+
+                        </table>
+
+                    </c:if>
 
 
+                    <!-- LISTA OGGETTI ACQUISTATI -->
 
-                    </table>
+                    <c:if test="${ricarica != true && riepilogo_acquisto == true}">
+
+                        <form class="form" method="POST" action="cliente.html">
+
+                            <div>
+                                <table id="client_table">
+
+                                    <tr>
+                                        <th></th>
+                                        <th>Prodotto</th>
+                                        <th>Quantità</th>
+                                        <th>Prezzzo</th>
+
+                                    </tr>
+
+                                    <c:forEach var="oggetto" items="${oggetti_acquistati}">
+
+                                        <tr>
+
+                                            <td class="imag_row"><img src="${oggetto.getUrl()}" alt="${oggetto.getDescrizione()}" width="20px" height="20px"/></td>
+                                            <td>${oggetto.getNome()}</td>
+                                            <td class="column_text_centered">${oggetto.getQuantita()}</td>
+                                            <td class="column_text_centered">${oggetto.getPrezzo()}</td>
+
+                                        </tr>
+                                    </c:forEach>
+
+
+                                </table>  
+                            </div>
+
+                            <input type="submit" value="Continua"/>
+                        </form>
+                    </c:if>
                 </div>
 
             </c:if>   
+
+
+            <!-- RIEPILOGO -->
 
             <c:if test="${riepilogo == true && acquistato != true}">
                 <div>
@@ -110,12 +181,12 @@ and open the template in the editor.
                             <a  href="cliente.html">Rifiuta</a>
                         </div>
 
-
-
                     </form>
                 </div>
             </c:if>
 
+
+            <!-- ACQUISTO -->
 
             <c:if test="${acquistato == true}">
                 <div class="clear"></div>

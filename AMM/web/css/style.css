@@ -71,7 +71,16 @@ h2, h3
     padding-top: 2%;
 }
 
+#sidebar1 div 
+{
+    text-align: center;
+}
 
+
+#sidebar1 div a{
+    padding-right: 2px;
+    padding-left: 2px;
+}
 /* Link */
 
 a:link
@@ -429,7 +438,7 @@ form
     {
         position: relative;
         bottom: 0;
-        top: 120px;
+        top: 190px;
         right:0;
         padding-left: 4%;
         padding-right: 4%;
@@ -584,7 +593,5 @@ form.form p.error {
 form.form input.evidenzia{
     background-color: lightcoral;
     border-color: darkred;
-    
-    
 }
 

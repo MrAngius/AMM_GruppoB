@@ -12,6 +12,8 @@ package amm.milestone3.classi;
 public abstract class Utente {
 
     private int id;
+    private String name;
+    private String surnmame;
     private String username;
     private String password;
     private SaldoConto disponibilita;
@@ -19,13 +21,17 @@ public abstract class Utente {
     // ctruttore
     public Utente() {
         this.setId(-1);
+        this.setName("");
+        this.setSurnmame("");
         this.setUsername("");
         this.setPassword("");
         this.setDisponibilita(null);
     }
 
-    public Utente(int id, String username, String password, SaldoConto conto) {
+    public Utente(int id,String name, String surname, String username, String password, SaldoConto conto) {
         this.setId(id);
+        this.setName(name);
+        this.setUsername(username);
         this.setUsername(username);
         this.setPassword(password);
         this.setDisponibilita(conto);
@@ -63,6 +69,21 @@ public abstract class Utente {
         this.disponibilita = conto;
     }
 
+    public String getSurnmame() {
+        return surnmame;
+    }
+
+    public void setSurnmame(String surnmame) {
+        this.surnmame = surnmame;
+    }
+    
+    public String getName() {
+        return name;
+    }
+ 
+    public void setName(String name) {
+        this.name = name;
+    }
     // metodo 
     public boolean isId(int id) {
         return this.getId() == id;

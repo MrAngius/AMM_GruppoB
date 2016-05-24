@@ -1,0 +1,27 @@
+#############################################
+                  ENTITA
+#############################################
+
+
+1) CLIENTE (id[PK], nome, cognome, username [U], password, conto)
+
+2) VENDITORE (id[PK], nome, cognome, username [U], password, conto)
+
+3) OGGETTO_VENDITA (id[PK], nome, descrizione, url, prezzo, quantita)
+
+
+@LEGGENDA
+<nome entita> ({lista attributi} note: [PK] = chiave primaria [U] = unique)
+
+############################################
+		 RELAZIONI
+############################################
+
+1) Venditore [1] >>> (VENDE) >>> [N] Oggetto_Vendita (partecipazione totale)
+
+2) Ciente [N] >>> (ACQUISTA) >>> [N] Oggetto_Vendita 
+        |- Attributo relazione : quantita
+
+
+@LEGGENDA
+<entita partenza> [cardinalita] >>> <nome relazione> >>> [cardinalita] <relazione arrivo> {attributi / vincoli}

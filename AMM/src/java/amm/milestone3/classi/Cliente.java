@@ -15,7 +15,7 @@ public class Cliente extends Utente {
         super();
     }
     
-    public Cliente(int id, String username, String password, SaldoConto conto) {
-        super(id, username, password, conto);
+    public Cliente(int id, String name, String surname, String username, String password, SaldoConto conto) {
+        super(id, name, surname, username, password, conto);
     }
 }

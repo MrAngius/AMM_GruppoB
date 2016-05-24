@@ -11,8 +11,10 @@ import amm.milestone3.classi.OggettoVendita;
 import amm.milestone3.classi.UserFactory;
 import amm.milestone3.classi.Utente;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +26,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Marco
  */
-@WebServlet(name = "Login", urlPatterns = {"/login.html"})
+@WebServlet(name = "Login", urlPatterns = {"/login.html"}, loadOnStartup = 0)
 public class Login extends HttpServlet {
 
     /**
@@ -36,59 +38,54 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    
+    private static final String JDBC_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";   
+    private static final String DB_CLEAN_PATH = "../../web/WEB-INF/db/ammdb";
+    private static final String DB_BUILD_PATH = "WEB-INF/db/ammdb";
+    
+       protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, SQLException, UserFactory.SQLnoResultException {
         response.setContentType("text/html;charset=UTF-8");
 
         // oggetto sessione
         HttpSession session = request.getSession(false);
 
-        request.setAttribute("error", false); //tolgo il messaggio se ricarica la pagina o preme submit con campi vuoti
+        // request.setAttribute("error", false); //tolgo il messaggio se ricarica la pagina o preme submit con campi vuoti
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Boolean trovato = false;
+        // controllo se è stato inviato e se non c'è una sessione in corso 
+        if (request.getParameter("Submit") != null && session.getAttribute("loggedIn") == null) {
 
-        // c'è un problema se si richiama la servlet da un altra pagina i valori sono null
-        if (request.getParameter("Submit") != null &&  session.getAttribute("loggedIn") == null) {
-            // e comuqnue mi serve un doppio controllo se ricarico 
+            // controllo sui campi
             if ((!"".equals(username) && !"".equals(password))) {
-                
 
-                ArrayList<Utente> listaUtenti = UserFactory.getInstance().getListaUtenti();
-                ArrayList<OggettoVendita> listaOggetti = ObjectSaleFactory.getInstance().getListaOggetti();
+                Utente u = UserFactory.getInstance().getUtente(username, password);
 
-                for (Utente u : listaUtenti) {
+                if (u != null) {
+                    session = request.getSession();
+                    session.setAttribute("loggedIn", true);
+                    session.setAttribute("id", u.getId());
 
-                    // siamo sicuri che sia giusto ? 
-                    if (u.getUsername().equals(username) && u.getPassword().equals(password)) // registraimolo nella sessione
-                    {
-                        session = request.getSession();
-                        session.setAttribute("loggedIn", true);
-                        session.setAttribute("id", u.getId());
-
-                        if (u instanceof Cliente) {
-                            trovato = true;
-                            session.setAttribute("tipoUtente", "cliente");
-                            caricaCliente(request, response, listaOggetti, u);
-                        } else {
-                            trovato = true;
-                            session.setAttribute("tipoUtente", "venditore");
-                            caricaVenditore(request, response, u);
-                        }
+                    if (u instanceof Cliente) {
+                        session.setAttribute("tipoUtente", "cliente");
+                        caricaCliente(request, response, session, u);
+                    } else {
+                        session.setAttribute("tipoUtente", "venditore");
+                        caricaVenditore(request, response, session, u);
                     }
-                }
 
-                // controllo se non viene trovato un utente 
-                if (trovato == false) {
+                } else {
                     // se non trova valori corrispondenti
-                    request.setAttribute("error", true); //tolgo il messaggio se ricarica la pagina o preme submit con campi vuoti
-                    request.setAttribute("submit", request.getParameter("submit"));
-                    request.getRequestDispatcher("form_login.jsp").forward(request, response);
+                    erroreLogin(request, response);
                 }
 
+            } else {
+                // se non trova valori corrispondenti
+                erroreLogin(request, response);
             }
 
+            // gestiamo se è presente un utente in sessione
         } else if (session != null) {
 
             if (session.getAttribute("loggedIn") != null) {
@@ -96,44 +93,54 @@ public class Login extends HttpServlet {
                     switch ((String) session.getAttribute("tipoUtente")) {
                         case ("cliente"): {
                             Utente u = UserFactory.getInstance().getCliente((int) session.getAttribute("id"));
-                            ArrayList<OggettoVendita> listaOggetti = ObjectSaleFactory.getInstance().getListaOggetti();
-                            caricaCliente(request, response, listaOggetti, u);
+                            caricaCliente(request, response, session, u);
                             break;
                         }
                         case ("venditore"): {
                             Utente u = UserFactory.getInstance().getVenditore((int) session.getAttribute("id"));
-                            caricaVenditore(request, response, u);
+                            caricaVenditore(request, response, session, u);
                             break;
                         }
                     }
                 }
+            } else {
+
+                request.getRequestDispatcher("form_login.jsp").forward(request, response);
             }
+        } else {
+            request.getRequestDispatcher("form_login.jsp").forward(request, response);
         }
-
-        request.getRequestDispatcher("form_login.jsp").forward(request, response);
-
     }
 
-    // metodi di suporto 
-    public void caricaCliente(HttpServletRequest request, HttpServletResponse response, ArrayList<OggettoVendita> listaOggetti, Utente u)
-            throws ServletException, IOException {
+    // metodi di suporto
+    public void caricaCliente(HttpServletRequest request, HttpServletResponse response, HttpSession session, Utente u)
+            throws ServletException, IOException, SQLException, UserFactory.SQLnoResultException {
         // impostiamo la request e passiamo gli attributi
-        request.setAttribute("listaOggetti", listaOggetti);
-        
+
+        request.setAttribute("listaOggetti", ObjectSaleFactory.getInstance().getListaOggetti());
+        request.setAttribute("utente", u);
         request.setAttribute("isClient", true); // ci serve per compilare adeguatamente la jsp
 
         // facciamo il dispatcher e inviamo alla jsp
         request.getRequestDispatcher("show_cliente.jsp").forward(request, response);
     }
 
-    public void caricaVenditore(HttpServletRequest request, HttpServletResponse response, Utente u)
-            throws ServletException, IOException {
+    public void caricaVenditore(HttpServletRequest request, HttpServletResponse response, HttpSession session, Utente u)
+            throws ServletException, IOException, SQLException, UserFactory.SQLnoResultException {
         // impostiamo la request e passiamo gli attributi
-        request.setAttribute("venditore", u); // ci serve per il conto
+        
+        request.setAttribute("utente", u);
         request.setAttribute("isVendor", true); // ci serve per compilare adeguatamente la jsp
         
         // facciamo il dispatcher e inviamo alla jsp
         request.getRequestDispatcher("form_venditore.jsp").forward(request, response);
+    }
+    
+    private void erroreLogin(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+        request.setAttribute("error", true); //tolgo il messaggio se ricarica la pagina o preme submit con campi vuoti
+        request.setAttribute("submit", request.getParameter("submit"));
+        request.getRequestDispatcher("form_login.jsp").forward(request, response);
     }
 
 
@@ -150,7 +157,13 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UserFactory.SQLnoResultException ex) {
+            System.out.println(ex.getInfo());
+        }
     }
 
     /**
@@ -164,7 +177,14 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            
+        } catch (UserFactory.SQLnoResultException ex) {
+            System.out.println(ex.getInfo());
+        }
     }
 
     /**
@@ -176,5 +196,21 @@ public class Login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
+    // METODO GESTIONE DB CARICAMENTO DRIVER DERBY
+    @Override
+    public void init() {
+        String dbConnection = "jdbc:derby:" + this.getServletContext().getRealPath("/") + DB_BUILD_PATH;
+        try {
+            Class.forName(JDBC_DRIVER);
+        } catch (ClassNotFoundException ex) {
 
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // agiungere tutte le factory 
+        
+        ObjectSaleFactory.getInstance().setConnectionString(dbConnection);
+        UserFactory.getInstance().setConnectionString(dbConnection);
+    }
 }
