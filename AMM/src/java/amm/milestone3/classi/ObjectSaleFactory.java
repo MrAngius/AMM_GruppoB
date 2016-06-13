@@ -38,6 +38,7 @@ public class ObjectSaleFactory {
 
     // METODI
     // metodi precedenti DB
+    
     public ArrayList<OggettoVendita> getListaOggetti()
             throws SQLException, SQLnoResultException {
 
@@ -98,6 +99,72 @@ public class ObjectSaleFactory {
 
         return null;
     }
+    
+    
+        public ArrayList<OggettoVendita> getListaOggettiBySearch(String search)
+            throws SQLException, SQLnoResultException {
+
+        // connessione
+        Connection conn = connettiDB();
+
+        // dichiaro preparedStatement 
+        PreparedStatement ricerca = null;
+
+        // query
+        String query = "SELECT * FROM oggetto_vendita WHERE nome LIKE ? OR descrizione LIKE ?";
+
+        try {
+
+            // inizializziamo il preparedStatement
+            ricerca = conn.prepareStatement(query);
+
+            ricerca.setString(1, '%' + search + '%');
+            ricerca.setString(2, '%' + search + '%');
+            
+            // eseguo
+            ResultSet objs = ricerca.executeQuery();
+
+            
+            if (objs.getFetchSize() != 0) {
+
+                ArrayList<OggettoVendita> listaOggetti = new ArrayList<>();
+
+                while (objs.next()) {
+                    OggettoVendita oggetto = new OggettoVendita();
+
+                    // non ci serve recuperare di nuovo username e password
+                    oggetto.setId(objs.getInt("id"));
+                    oggetto.setNome(objs.getString("nome"));
+                    oggetto.setDescrizione(objs.getString("descrizione"));
+                    oggetto.setUrl(objs.getString("url"));
+                    oggetto.setQuantita(objs.getInt("quantita"));
+                    oggetto.setPrezzo(objs.getDouble("prezzo"));
+
+                    listaOggetti.add(oggetto);
+                }
+
+                return listaOggetti;
+
+            } else {
+                return new ArrayList<OggettoVendita>();
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            if (ricerca != null) {
+                ricerca.close();
+            }
+
+            conn.close();
+        }
+
+        return null;
+    }
+    
 
     public OggettoVendita getOggetto(int id)
             throws SQLException, SQLnoResultException {

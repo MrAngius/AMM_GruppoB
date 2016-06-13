@@ -21,6 +21,8 @@ and open the template in the editor.
         <meta name="author" content="Marco Angius">
         <meta name="description" content="pagina acquisto prodotti in vendita">
         <link href="css/style.css" type="text/css" rel="stylesheet" media="screen"/>
+        <script type="text/javascript" src="js/jquery-2.2.4.js"></script>
+        <script type="text/javascript" src="js/filter.js"></script>
     </head>
     <body>
 
@@ -38,8 +40,6 @@ and open the template in the editor.
                         <li><a href="login.html">Login</a></li>
                     </ul>
                 </nav>
-
-
             </header>
 
 
@@ -89,6 +89,17 @@ and open the template in the editor.
                     <!-- LISTA OGGETTI VENDITA -->
 
                     <c:if test="${ricarica != true && riepilogo_acquisto != true}">
+                        
+                        <!-- Sezione ricerca-->
+                        <div id = "ricerca">
+                            <label for="filter">Ricerca</label>
+                            <input  type="text" id="filter"/> 
+                        </div>
+                        
+                        
+                        
+                        
+                        
                         <table id="client_table">
 
                             <tr>
@@ -121,11 +132,11 @@ and open the template in the editor.
 
                     <c:if test="${ricarica != true && riepilogo_acquisto == true}">
 
-                        <form class="form" method="POST" action="cliente.html">
 
-                            <div>
-                                <table id="client_table">
 
+                        <div>
+                            <table id="client_table">
+                                <c:if test="${!oggetti_acquistati.isEmpty()}">
                                     <tr>
                                         <th></th>
                                         <th>Prodotto</th>
@@ -133,25 +144,34 @@ and open the template in the editor.
                                         <th>Prezzzo</th>
 
                                     </tr>
+                                </c:if>
 
-                                    <c:forEach var="oggetto" items="${oggetti_acquistati}">
-
-                                        <tr>
-
-                                            <td class="imag_row"><img src="${oggetto.getUrl()}" alt="${oggetto.getDescrizione()}" width="20px" height="20px"/></td>
-                                            <td>${oggetto.getNome()}</td>
-                                            <td class="column_text_centered">${oggetto.getQuantita()}</td>
-                                            <td class="column_text_centered">${oggetto.getPrezzo()}</td>
-
-                                        </tr>
-                                    </c:forEach>
+                                <c:if test="${oggetti_acquistati.isEmpty()}">
+                                    <div class="messaggio">Non ci sono oggetti acquistati!
+                                    </div>
+                                </c:if>    
 
 
-                                </table>  
+                                <c:forEach var="oggetto" items="${oggetti_acquistati}">
+
+                                    <tr>
+
+                                        <td class="imag_row"><img src="${oggetto.getUrl()}" alt="${oggetto.getDescrizione()}" width="20px" height="20px"/></td>
+                                        <td>${oggetto.getNome()}</td>
+                                        <td class="column_text_centered">${oggetto.getQuantita()}</td>
+                                        <td class="column_text_centered">${oggetto.getPrezzo()}</td>
+
+                                    </tr>
+                                </c:forEach>
+
+
+                            </table>  
+                            <div id="link_continua">
+                                <a href="cliente.html">Continua</a> 
                             </div>
 
-                            <input type="submit" value="Continua"/>
-                        </form>
+                        </div>
+
                     </c:if>
                 </div>
 

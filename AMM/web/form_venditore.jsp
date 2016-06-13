@@ -21,6 +21,8 @@ and open the template in the editor.
         <meta name="author" content="Marco Angius">
         <meta name="description" content="Pagina inserzione prodotto">
         <link href="css/style.css" type="text/css" rel="stylesheet" media="screen"/>
+        <script type="text/javascript" src="js/jquery-2.2.4.js"></script>
+        <script type="text/javascript" src="js/isBlank.js"></script>
     </head>
     <body>
         <!-- Page -->
@@ -69,17 +71,17 @@ and open the template in the editor.
                     <!--MAIN-->
 
                     <form class="form" method="POST" action="venditore.html">
-                        <div>
+                        <div class ="input_nome">
                             <label for="nome_oggetto">Nome Oggetto</label>
-                            <input type="text" name="nomeOggetto" value = "${oggetto_form.getNome()}" id="nome_oggetto"/>
+                            <input  type="text" name="nomeOggetto" value = "${oggetto_form.getNome()}" id="nome_oggetto"/>
                         </div>
-                        <div>
+                        <div class = "input_url">
                             <label for="url_immagine">URL Immagine</label>
                             <input type="text" name="urlImmagine" value = "${oggetto_form.getUrl()}" id="url_immagine"/>
                         </div>
-                        <div>
+                        <div class ="texta_desc">
                             <label for="descrizione_oggetto">Descrizione</label>
-                            <textarea name="descrizioneOggetto" id="descrizione_oggetto" rows="4" cols="20">${oggetto_form.getDescrizione()}</textarea>
+                            <textarea  name="descrizioneOggetto" id="descrizione_oggetto" rows="4" cols="20">${oggetto_form.getDescrizione()}</textarea>
                         </div>
                         <div>
 
@@ -102,7 +104,7 @@ and open the template in the editor.
                             </c:if>
                         </div>
 
-                        <input type="submit" name="submit_oggetto" value="Registra Prodotto"/>
+                        <input class="invio_form" type="submit" name="submit_oggetto" value="Registra Prodotto"/>
                     </form>
 
                 </div>
@@ -168,7 +170,9 @@ and open the template in the editor.
 
 
                 </table>
-
+                <div id="link_continua">
+                    <a href="venditore.html">Torna a Inserisci Oggetto</a> 
+                </div>
 
             </c:if>
 
@@ -179,15 +183,15 @@ and open the template in the editor.
                 <form class="form" method="POST" action="venditore.html">
                     <div>
                         <label for="nome_oggetto">Nome Oggetto</label>
-                        <input type="text" name="nomeOggetto" value="${oggetto_mod.getNome()}" id="nome_oggetto"/>
+                        <input class ="input_nome" type="text" name="nomeOggetto" value="${oggetto_mod.getNome()}" id="nome_oggetto"/>
                     </div>
                     <div>
                         <label for="url_immagine">URL Immagine</label>
-                        <input type="text" name="urlImmagine" value="${oggetto_mod.getUrl()}" id="url_immagine"/>
+                        <input class = "input_url" type="text" name="urlImmagine" value="${oggetto_mod.getUrl()}" id="url_immagine"/>
                     </div>
                     <div>
                         <label for="descrizione_oggetto">Descrizione</label>
-                        <textarea name="descrizioneOggetto" id="descrizione_oggetto" rows="4" cols="20">${oggetto_mod.getDescrizione()}</textarea>
+                        <textarea class ="texta_desc" name="descrizioneOggetto" id="descrizione_oggetto" rows="4" cols="20">${oggetto_mod.getDescrizione()}</textarea>
                     </div>
                     <div>
 
@@ -209,7 +213,7 @@ and open the template in the editor.
                         </c:if>
                     </div>
 
-                    <input type="submit" name="mod_oggetto" value="Modifica"/>
+                    <input class="invio_form" type="submit" name="mod_oggetto" value="Modifica"/>
                     <input type="hidden" name="id_obj" value="${oggetto_mod.getId()}"/>
                 </form>
 

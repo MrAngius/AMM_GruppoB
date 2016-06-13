@@ -74,6 +74,7 @@ h2, h3
 #sidebar1 div 
 {
     text-align: center;
+    padding: 5px;
 }
 
 
@@ -193,13 +194,13 @@ form
 }
 
 
-.form label
+.form label, #ricerca label
 {
     float: left;
     margin-top: 1%;
 }
 
-.form input[type="password"], .form input[type="url"], .form input[type="text"], .form textarea
+.form input[type="password"], .form input[type="url"], .form input[type="text"], .form textarea, #ricerca input
 {
     padding: 1%;
     margin-top: 1%;
@@ -273,7 +274,7 @@ form
         max-width: 1024px;
         min-height: 1080px;
 
-        background: url(images/texture-noise.png) repeat;
+        background: url(../images/texture-noise.png) repeat;
         border-right: goldenrod solid thin;
         border-left: goldenrod solid thin;
     }
@@ -333,6 +334,7 @@ form
         margin-top: 8%;
     }
 
+    
     #page
     {
         position: relative;
@@ -341,7 +343,7 @@ form
         min-height: 980px;
         overflow: scroll;
 
-        background: url(images/texture-noise.png) repeat;
+        background: url(../images/texture-noise.png) repeat;
         border-right: goldenrod solid thin;
         border-left: goldenrod solid thin;
     }
@@ -408,7 +410,7 @@ form
         min-height: 1080px;
         overflow: scroll;
 
-        background: url(images/texture-noise.png) repeat;
+        background: url(../images/texture-noise.png) repeat;
         border-right: goldenrod solid thin;
         border-left: goldenrod solid thin;
     }
@@ -429,21 +431,33 @@ form
     #sidebar1 {
         position: absolute;
         top: 190px;
-        margin-top: 10px;
+        margin-top: 1px;
         right: 0;
         left: 0;
+
+        display: block;
+        background: blanchedalmond;
+        border-bottom: solid thin goldenrod;
     }
 
+    #sidebar1 div:last-child{
+        margin-bottom: 5px;
+    }
+    
     #content
     {
         position: relative;
         bottom: 0;
-        top: 190px;
+        top: 270px;
         right:0;
         padding-left: 4%;
         padding-right: 4%;
         padding-top: 6%;
         margin-bottom: 30px;
+    }
+    
+    #content.description{
+        top: 120px;
     }
 
     #footer
@@ -481,8 +495,6 @@ form
         position: relative;
         display: block;
     }
-
-
 }
 
 
@@ -584,14 +596,57 @@ form
     margin-top: 9px;
 }
 
-form.form p.error {
+form.form p.error, form.form p.error_b {
     margin-top: 3px;
     text-align: right;
     color: lightcoral;
 }
 
-form.form input.evidenzia{
+form.form input.evidenzia, form.form input.evidenzia_b{
     background-color: lightcoral;
     border-color: darkred;
 }
 
+form.form textarea.evidenzia_b {
+    background: lightcoral;
+    border-color: darkred;
+}
+
+#link_continua{
+    text-align: center;
+}
+
+
+div#ricerca{
+   margin: 0 9%;
+}
+
+#ricerca label
+{
+    float: left;
+    margin-top: 1%;
+    color: darkred;
+}
+
+#ricerca input
+{
+    padding: 1%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    width: 97%;
+    resize: none;
+    outline: none;
+    border: thin solid goldenrod;
+    
+}
+
+#empty {
+    color: crimson;
+    padding: 7px;
+    text-align: center;
+}
+
+.messaggio{
+    text-align: center;
+    color: darkgoldenrod; 
+}
