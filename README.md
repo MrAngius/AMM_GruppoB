@@ -1,4 +1,4 @@
-# Web Appliation Development
+# Web Application Development
 ## A simple e-commerce web application
 
 Developed during the couse of "Adminisration System" in my MCs track. 
